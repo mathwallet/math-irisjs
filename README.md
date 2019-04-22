@@ -2,9 +2,25 @@
 
 ## Using Math Wallet IRISnet JS API
 
-API Document: [http://doc.mathwallet.org](http://doc.mathwallet.org)
 
-Find the sample in the repo
+```
+// config network
+var network = {
+    blockchain: "iris",
+    chainId: "irishub" // testnet: fuxi
+};
+
+// login
+mathExtension.getIdentity(network)
+
+// logout
+mathExtension.forgetIdentity()
+
+// sign transaction
+mathExtension.requestSignature(transaction, network)
+```
+
+For details, please find the sample in this repo.
 
 ### Download Math Wallet 麦子钱包下载
 
@@ -13,3 +29,5 @@ Find the sample in the repo
 If you would like to list your DAPP in Math Wallet, please follow the steps in http://blog.medishares.org/?p=398
 
 如果您希望将您开发的DAPP加入麦子钱包，请查看 http://blog.medishares.org/?p=398
+
+
