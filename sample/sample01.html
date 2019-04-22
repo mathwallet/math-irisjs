@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <script type="text/javascript">
+        var network = {
+            blockchain: "iris",
+            chainId: "irishub" // testnet: fuxi
+        };
+
+        function login() {
+            // identity = {
+            //     account: "iaa1sgt3cjh3zgywk0vpsvmaay09ljqf8md37ffwgk",
+            //     blockchain: "iris",
+            //     chainId: "irishub"
+            // }
+            mathExtension.getIdentity(network).then(identity => {
+                console.log(identity);
+            }).catch(e => {
+                console.log(e);
+            })
+        }
+        function sendTransaction() {
+            var transaction = {
+                from: "iaa1sgt3cjh3zgywk0vpsvmaay09ljqf8md37ffwgk",
+                chain_id: "irishub",
+                account_number: 0,
+                sequence: 0,
+                fees: {
+                    denom: "iris-atto",
+                    amount: 400000000000000000
+                },
+                gas: 20000,
+                memo: "",
+                type: "transfer",
+                msg: {
+                    to: "iaa1syv7nfgtghkf3s2jyqzqhpxh6r2cvupt203rue",
+                    coins: [
+                        {
+                            denom: "iris-atto",
+                            amount: "1000000000000000000"
+                        }
+                    ]
+                }
+            };
+            var provider = mathExtension.httpProvider("https://iris.medishares.net");
+            // 获取交易参数
+            provider.get(`/auth/accounts/${transaction.from}`).then(response => {
+                var result = response.result;
+                transaction.account_number = result.account_number;
+                transaction.sequence = result.sequence;
+                // 请求插件签名
+                mathExtension.requestSignature(transaction, network).then(signedTransaction => {
+                    console.log(signedTransaction);
+
+                    // 广播交易
+                    const opts = {
+                        data: signedTransaction,
+                        headers: {
+                            "content-type": "text/plain",
+                        }
+                    }
+                    provider.post(`/api/v1/broadcast?sync=true`, null, opts).then(r => {
+                        console.log(r.result);
+
+                    }).catch(e => {
+                        console.log(e);
+                    });
+                }).catch(e => {
+                    console.log(e);
+                })
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <button type="button" onclick="login()">Login</button>
+    <button type="button" onclick="sendTransaction()">Transfer</button>
+</body>
+
+</html>
