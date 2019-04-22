@@ -22,6 +22,9 @@
                 console.log(e);
             })
         }
+        function logout() {
+            mathExtension.forgetIdentity();
+        }
         function sendTransaction() {
             var transaction = {
                 from: "iaa1sgt3cjh3zgywk0vpsvmaay09ljqf8md37ffwgk",
@@ -79,6 +82,7 @@
 <body>
     <button type="button" onclick="login()">Login</button>
     <button type="button" onclick="sendTransaction()">Transfer</button>
+    <button type="button" onclick="logout()">Logout</button>
 </body>
 
 </html>
