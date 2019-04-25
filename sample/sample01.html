@@ -65,7 +65,7 @@
                             "content-type": "text/plain",
                         }
                     }
-                    provider.post(`/api/v1/broadcast?sync=true`, null, opts).then(r => {
+                    provider.post(`/tx/broadcast`, null, opts).then(r => {
                         console.log(r.result);
 
                     }).catch(e => {
