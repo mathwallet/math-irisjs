@@ -19,8 +19,7 @@
         function login() {
             // identity = {
             //     account: "iaa1sgt3cjh3zgywk0vpsvmaay09ljqf8md37ffwgk",
-            //     blockchain: "iris",
-            //     chainId: "irishub"
+            //     blockchain: "iris"
             // }
             mathExtension.getIdentity(network).then(identity => {
                 console.log(identity);
@@ -35,7 +34,7 @@
             var transaction = {
                 "sequence":"2",
                 "account_number":"7340",
-                "chain_id":"kava-2",
+                "chain_id":"iris-2",
                 "fee":{
                     "amount":[
                         {"amount":"17500","denom":"uiris"}
