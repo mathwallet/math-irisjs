@@ -31,7 +31,7 @@
         function logout() {
             mathExtension.forgetIdentity();
         }
-        function sendTransaction() {
+        function signTransaction() {
             var transaction = {
                 from: "iaa1sgt3cjh3zgywk0vpsvmaay09ljqf8md37ffwgk",
                 chain_id: "irishub",
@@ -54,38 +54,12 @@
                     ]
                 }
             };
-            // More Transactions
-            https://github.com/irisnet/irisnet-crypto/blob/master/chains/iris/test.js
-
-
-            // Broadcast
-            var provider = mathExtension.httpProvider("https://iris.medishares.net");
-            // 获取交易参数
-            provider.get(`/auth/accounts/${transaction.from}`).then(response => {
-                var result = response.result;
-                transaction.account_number = result.account_number;
-                transaction.sequence = result.sequence;
-                // 请求插件签名
-                mathExtension.requestSignature(transaction, network).then(signedTransaction => {
-                    console.log(signedTransaction);
-
-                    // 广播交易
-                    const opts = {
-                        data: signedTransaction,
-                        headers: {
-                            "content-type": "text/plain",
-                        }
-                    }
-                    provider.post(`/tx/broadcast`, null, opts).then(r => {
-                        console.log(r.result);
-
-                    }).catch(e => {
-                        console.log(e);
-                    });
+             // 请求插件签名
+             mathExtension.requestSignature(transaction, network).then(signature => {
+                    console.log(signature);
                 }).catch(e => {
                     console.log(e);
                 })
-            });
         }
     </script>
 </head>
@@ -94,7 +68,7 @@
 <div class="container bs-docs-container">
     <h3>IRIS JS 测试</h3>
     <button type="button" class="btn btn-primary btn-lg btn-block" onclick="login()">Login</button>
-    <button type="button" class="btn btn-success btn-lg btn-block" onclick="sendTransaction()">Transfer</button>
+    <button type="button" class="btn btn-success btn-lg btn-block" onclick="signTransaction()">Sign Transaction</button>
     <button type="button" class="btn btn-warning btn-lg btn-block" onclick="logout()">Logout</button>
 </div>
 </body>

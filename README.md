@@ -6,8 +6,7 @@
 ```
 // config network
 var network = {
-    blockchain: "iris",
-    chainId: "irishub" // testnet: fuxi
+    blockchain: "iris"
 };
 
 // login
@@ -17,7 +16,7 @@ mathExtension.getIdentity(network)
 mathExtension.forgetIdentity()
 
 // sign transaction
-mathExtension.requestSignature(transaction, network)
+mathExtension.requestSignature(transaction)
 ```
 
 For details, please find the sample in this repo.
