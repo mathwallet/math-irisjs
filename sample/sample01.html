@@ -33,29 +33,31 @@
         }
         function signTransaction() {
             var transaction = {
-                from: "iaa1sgt3cjh3zgywk0vpsvmaay09ljqf8md37ffwgk",
-                chain_id: "irishub",
-                account_number: 0,
-                sequence: 0,
-                fees: {
-                    denom: "iris-atto",
-                    amount: 400000000000000000
+                "sequence":"2",
+                "account_number":"7340",
+                "chain_id":"kava-2",
+                "fee":{
+                    "amount":[
+                        {"amount":"17500","denom":"uiris"}
+                    ],
+                    "gas":"70000"
                 },
-                gas: 20000,
-                memo: "",
-                type: "transfer",
-                msg: {
-                    to: "iaa1syv7nfgtghkf3s2jyqzqhpxh6r2cvupt203rue",
-                    coins: [
-                        {
-                            denom: "iris-atto",
-                            amount: "1000000000000000000"
+                "memo":"",
+                "msgs":[
+                    {
+                        "type":"cosmos-sdk/MsgSend",
+                        "value":{
+                            "amount":[
+                                {"amount":"100000","denom":"uiris"}
+                            ],
+                            "from_address":"iaa1sgt3cjh3zgywk0vpsvmaay09ljqf8md37ffwgk",
+                            "to_address":"iaa1sgt3cjh3zgywk0vpsvmaay09ljqf8md37ffwgk"
                         }
-                    ]
-                }
+                    }
+                ]
             };
              // 请求插件签名
-             mathExtension.requestSignature(transaction, network).then(signature => {
+             mathExtension.requestSignature(transaction).then(signature => {
                     console.log(signature);
                 }).catch(e => {
                     console.log(e);
